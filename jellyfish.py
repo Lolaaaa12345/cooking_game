@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Jellyfish:
     def __init__(self, x, y):
@@ -6,5 +7,5 @@ class Jellyfish:
         self.y = y
         self.image = pygame.image.load("jellyfish food")
 
-    def enter_restaurant (self, customers, location_to_sit):
-        if customers < 3
+    def enter_restaurant (self, location_to_sit):
+        random.randint

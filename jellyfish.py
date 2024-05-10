@@ -7,5 +7,5 @@ class Jellyfish:
         self.y = y
         self.image = pygame.image.load("jellyfish food")
 
-    def enter_restaurant (self, location_to_sit):
-        random.randint
+    def enter_restaurant (self, sit_x, sit_y):
+

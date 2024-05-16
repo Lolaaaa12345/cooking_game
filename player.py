@@ -5,9 +5,11 @@ class Player:
         self.x = x
         self.y = y
         self.image = pygame.image.load("Chef real.png")
+        self.image_size = self.image.get_size()
+        self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         self.delta = 2
 
-    def move_character(self, direction) :
+    def move_direction(self, direction) :
         if direction == "up":
             if 0 <= self.y <= 550:
                 self.y = self.y - self.delta

@@ -1,11 +1,11 @@
 import pygame
 import random
 
-class Jellyfish:
+class Squid:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.image = pygame.image.load("jellyfish food.png")
+        self.image = pygame.image.load("squid food.png")
         self.image_size = self.image.get_size()
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         self.delta = 1
@@ -21,5 +21,4 @@ class Jellyfish:
                 self.y = self.y - self.delta
             if self.y < sit_y:
                 self.y = self.y + self.delta
-
 

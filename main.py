@@ -23,14 +23,21 @@ squid_load = pygame.image.load("squid food.png")
 # seahorse_load = pygame.image.load("seahorse food.png")
 #fish_load = pygame.image.load("fish food.png")
 
+night_background = pygame.image.load("night_back.jpeg")
+
 #variables:
 customers_in_store = 0
 money = 0
 instructions = True
-user_hit_the_start_button = False
+game_over = False
 
 #time variables
 user_hit_the_start_button = False
+
+start_the_game_timer = time.time()
+start_time = float(time.time())
+current_time = start_time
+time_countdown = 5
 
 
 #render text for later
@@ -71,16 +78,18 @@ while run:
             user_hit_the_start_button = True
         if event.type == pygame.QUIT:
             run = False
-    # if instructions == False:
-    #     if user_hit_the_start_button:
-    #         start_the_game_timer = time.time()
-    #         user_hit_the_start_button = False
-    #     current_time = time.time()
-    #     for i in range(1):
-    #         current_time = current_time + 1
-    #         total_time = round(time_countdown - (current_time - start_the_game_timer), 2)
-    #         display_time = stats_font.render("Time left: " + str(total_time) + "s", True, (255, 255, 255))
 
+    if instructions == False:
+        if user_hit_the_start_button:
+            start_the_game_timer = time.time()
+            user_hit_the_start_button = False
+        current_time = time.time()
+        for i in range(1):
+            current_time = current_time + 1
+            total_time = round(time_countdown - (current_time - start_the_game_timer), 2)
+            display_time = stats_font.render("Time left: " + str(total_time) + "s", True, (0, 0, 0))
+            if round(total_time) == 0:
+                game_over = True
 
  # --- Main event loop
     screen.fill((173, 216, 230))
@@ -92,7 +101,11 @@ while run:
         pygame.display.update()
     else:
         screen.fill((255, 255, 255))
+        screen.blit(jelly.image, jelly.rect)
         screen.blit(p.image, p.rect)
+        screen.blit(display_time, (0, 5))
+        if game_over == True:
+            screen.blit(night_background, (0,0))
         pygame.display.update()
 
 

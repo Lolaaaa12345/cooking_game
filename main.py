@@ -1,8 +1,13 @@
 import pygame
 import time
+
 from player import Player
+from crab import Crab
+from fish import Fish
 from jellyfish import Jellyfish
+from seahorse import Seahorse
 from squid import Squid
+
 
 # set up pygame modules
 pygame.init()
@@ -17,11 +22,15 @@ SCREEN_WIDTH = 800
 size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
 
-player_load = pygame.image.load("chef real.png")
+player_load = pygame.image.load("player.png")
+crab_load = pygame.image.load("crab food.png")
+fish_load = pygame.image.load("fish food.png")
 jellyfish_load = pygame.image.load("jellyfish food.png")
+seahorse_load = pygame.image.load("sea horse.png")
 squid_load = pygame.image.load("squid food.png")
-# seahorse_load = pygame.image.load("seahorse food.png")
-#fish_load = pygame.image.load("fish food.png")
+
+
+
 
 night_background = pygame.image.load("night_back.jpeg")
 
@@ -53,7 +62,10 @@ display_instructions_four = instructions_font.render("simply walk into them", Tr
 p = Player(500, 200)
 
 #all the characters come in from lower left coords (600, 0)
+crab = Crab(600, 0)
+fish = Fish(600, 0)
 jelly = Jellyfish(600, 0)
+seahorse = Seahorse(600, 0)
 squid = Squid(600, 0)
 
 

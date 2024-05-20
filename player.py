@@ -4,7 +4,7 @@ class Player:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.image = pygame.image.load("Chef real.png")
+        self.image = pygame.image.load("player.png")
 
         self.image_size = self.image.get_size()
         scale_size = (self.image_size[0] * .5, self.image_size[1] * .5)

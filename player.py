@@ -16,22 +16,22 @@ class Player:
 
     def move_direction(self, direction):
         if direction == "up":
-            if 0 <= self.y <= 550:
+            if 0 <= self.y <= 570:
                 self.y = self.y - self.delta
             else:
                 self.y = self.y
         if direction == "down":
-            if 0 <= self.y <= 550:
+            if 0 <= self.y <= 570:
                 self.y = self.y + self.delta
             else:
                 self.y = self.y
         if direction == "left":
-            if 0 <= self.x <= 750:
+            if 0 <= self.x <= 770:
                 self.x = self.x - self.delta
             else:
                 self.x = self.x
         if direction == "right":
-            if 0 <= self.x <= 750:
+            if 0 <= self.x <= 770:
                 self.x = self.x + self.delta
             else:
                 self.x = self.x

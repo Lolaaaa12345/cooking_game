@@ -7,6 +7,9 @@ from fish import Fish
 from jellyfish import Jellyfish
 from seahorse import Seahorse
 from squid import Squid
+from soda import Soda
+from fries import Fries
+from burger import Burger
 
 
 # set up pygame modules
@@ -23,14 +26,16 @@ size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
 
 player_load = pygame.image.load("player.png")
+
 crab_load = pygame.image.load("crab food.png")
 fish_load = pygame.image.load("fish food.png")
 jellyfish_load = pygame.image.load("jellyfish food.png")
 seahorse_load = pygame.image.load("sea horse.png")
 squid_load = pygame.image.load("squid food.png")
 
-
-
+soda_load = pygame.image.load("soda_station.png")
+fries_load = pygame.image.load("fries_station.png")
+burger_load = pygame.image.load("burger_station.png")
 
 night_background = pygame.image.load("night_back.jpeg")
 
@@ -61,13 +66,15 @@ display_instructions_four = instructions_font.render("simply walk into them", Tr
 
 p = Player(500, 200)
 
-#all the characters come in from lower left coords (600, 0)
 crab = Crab(600, 0)
 fish = Fish(600, 0)
 jelly = Jellyfish(600, 0)
 seahorse = Seahorse(600, 0)
 squid = Squid(600, 0)
 
+soda = Soda(670, 200)
+fries = Fries(550, 0)
+burger = Burger(670, 400)
 
 run = True
 # -------- Main Program Loop -----------
@@ -102,6 +109,9 @@ while run:
             display_time = stats_font.render("Time left: " + str(total_time) + "s", True, (0, 0, 0))
             if round(total_time) == 0:
                 game_over = True
+        #
+        # if p.colliderect(crab.rect):
+        #     if
 
  # --- Main event loop
     screen.fill((173, 216, 230))
@@ -115,7 +125,11 @@ while run:
         screen.fill((255, 255, 255))
         screen.blit(jelly.image, jelly.rect)
         screen.blit(p.image, p.rect)
+        screen.blit(burger.image, burger.rect)
+        screen.blit(soda.image, soda.rect)
+        screen.blit(fries.image, fries.rect)
         screen.blit(display_time, (0, 5))
+
         if game_over == True:
             screen.blit(night_background, (0,0))
         pygame.display.update()

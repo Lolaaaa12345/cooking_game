@@ -45,6 +45,14 @@ money = 0
 instructions = True
 game_over = False
 
+burger = False
+fries = False
+soda = False
+want_burger = False
+want_fries = False
+want_soda = False
+collision = True
+
 #time variables
 user_hit_the_start_button = False
 
@@ -75,6 +83,30 @@ squid = Squid(600, 0)
 soda = Soda(670, 200)
 fries = Fries(550, 0)
 burger = Burger(670, 400)
+
+def pay_burger(money):
+    money = money + 5
+    return money
+def pay_fries(money):
+    money = money + 4
+    return money
+def pay_soda(money):
+    money = money + 2
+    return money
+def complete_order(collision):
+    if collision == True:
+        if soda == True and want_soda == True:
+            pay_soda(money)
+            soda == False
+            want_soda == False
+        if burger == True and want_burger == True:
+            pay_burger(money)
+            burger == False
+            want_burger == False
+        if fries == True and want_fries == True:
+            pay_fries(money)
+            fries == False
+            want_fries == False
 
 run = True
 # -------- Main Program Loop -----------
@@ -109,9 +141,44 @@ while run:
             display_time = stats_font.render("Time left: " + str(total_time) + "s", True, (0, 0, 0))
             if round(total_time) == 0:
                 game_over = True
-        #
-        # if p.colliderect(crab.rect):
-        #     if
+
+        if p.rect.colliderect(soda.rect):
+            soda = True
+        if p.rect.colliderect(burger.rect):
+            burger = True
+        if p.rect.colliderect(soda.rect):
+            soda = True
+
+        if p.rect.colliderect(crab.rect):
+            want_burger = True
+            want_fries = True
+            want_soda = True
+            collision = True
+            complete_order(collision)
+        if p.rect.colliderect(fish.rect):
+            want_burger = True
+            want_fries = True
+            want_soda = True
+            collision = True
+            complete_order(collision)
+        if p.rect.colliderect(jelly.rect):
+            want_burger = True
+            want_fries = True
+            want_soda = True
+            collision = True
+            complete_order(collision)
+        if p.rect.colliderect(seahorse.rect):
+            want_fries = True
+            want_soda = True
+            collision = True
+            complete_order(collision)
+        if p.rect.colliderect(squid.rect):
+            want_burger = True
+            want_soda = True
+            collision = True
+            complete_order(collision)
+
+
 
  # --- Main event loop
     screen.fill((173, 216, 230))

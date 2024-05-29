@@ -44,6 +44,7 @@ customers_in_store = 0
 money = 0
 instructions = True
 game_over = False
+main_game = False
 
 burger = False
 fries = False
@@ -63,7 +64,7 @@ time_countdown = 5
 
 
 #render text for later
-display_money = stats_font.render("$0", True, (255,255,255))
+display_money = stats_font.render("$0", True, (0, 0, 0))
 
 display_instructions_one = instructions_font.render("Fufill orders to make money!", True, (255, 255, 255))
 display_instructions_two = instructions_font.render("Burgers are $5, fries $3 and soda $2", True, (255, 255, 255))
@@ -115,8 +116,10 @@ while run:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_d]:
         p.move_direction("right")
+        print("right key pressed")
     if keys[pygame.K_a]:
         p.move_direction("left")
+        print("left key pressed")
     if keys[pygame.K_w]:
         p.move_direction("up")
     if keys[pygame.K_s]:
@@ -127,6 +130,7 @@ while run:
         if event.type == pygame.MOUSEBUTTONUP:
             instructions = False
             user_hit_the_start_button = True
+            main_game = True
         if event.type == pygame.QUIT:
             run = False
 
@@ -141,6 +145,7 @@ while run:
             display_time = stats_font.render("Time left: " + str(total_time) + "s", True, (0, 0, 0))
             if round(total_time) == 0:
                 game_over = True
+                main_game = False
 
         if p.rect.colliderect(soda.rect):
             soda = True
@@ -178,6 +183,8 @@ while run:
             collision = True
             complete_order(collision)
 
+        display_money = stats_font.render(str(money), True, (0,0, 0))
+
 
 
  # --- Main event loop
@@ -188,20 +195,21 @@ while run:
         screen.blit(display_instructions_three, (30, 170))
         screen.blit(display_instructions_four, (30, 220))
         pygame.display.update()
-    else:
+    elif main_game:
         screen.fill((255, 255, 255))
         screen.blit(jelly.image, jelly.rect)
         screen.blit(p.image, p.rect)
         screen.blit(burger.image, burger.rect)
         screen.blit(soda.image, soda.rect)
         screen.blit(fries.image, fries.rect)
-        screen.blit(display_time, (0, 5))
+        screen.blit(display_time, (10, 5))
+        screen.blit(display_money, (10, 30))
+        pygame.display.update()
 
-        if game_over == True:
-            screen.blit(night_background, (0,0))
+    elif game_over == True:
+        screen.blit(night_background, (0,0))
         pygame.display.update()
 
 
 pygame.display.update()
-
-
+w

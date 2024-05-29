@@ -15,23 +15,16 @@ class Player:
         self.delta = 2
 
     def move_direction(self, direction):
+        self.delta = 2
         if direction == "up":
-            if 0 <= self.y <= 570:
-                self.y = self.y - self.delta
-            else:
-                self.y = self.y
+            self.y = self.y - self.delta
+            self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         if direction == "down":
-            if 0 <= self.y <= 570:
-                self.y = self.y + self.delta
-            else:
-                self.y = self.y
+            self.y = self.y + self.delta
+            self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         if direction == "left":
-            if 0 <= self.x <= 770:
-                self.x = self.x - self.delta
-            else:
-                self.x = self.x
+            self.x = self.x - self.delta
+            self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         if direction == "right":
-            if 0 <= self.x <= 770:
-                self.x = self.x + self.delta
-            else:
-                self.x = self.x
+            self.x = self.x + self.delta
+            self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])

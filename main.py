@@ -60,7 +60,7 @@ user_hit_the_start_button = False
 start_the_game_timer = time.time()
 start_time = float(time.time())
 current_time = start_time
-time_countdown = 5
+time_countdown = 10
 
 
 #render text for later
@@ -68,8 +68,9 @@ display_money = stats_font.render("$0", True, (0, 0, 0))
 
 display_instructions_one = instructions_font.render("Fufill orders to make money!", True, (255, 255, 255))
 display_instructions_two = instructions_font.render("Burgers are $5, fries $3 and soda $2", True, (255, 255, 255))
-display_instructions_three = instructions_font.render("To give a customer their order", True, (255, 255, 255))
-display_instructions_four = instructions_font.render("simply walk into them", True, (255, 255, 255))
+display_instructions_three = instructions_font.render("To give a customer their order, walk into them", True, (255, 255, 255))
+
+display_end_one = end_font.render("Congrats you made it to the end!", True, (255, 255, 255))
 
 #characters rectangles
 
@@ -81,15 +82,15 @@ jelly = Jellyfish(600, 0)
 seahorse = Seahorse(600, 0)
 squid = Squid(600, 0)
 
-soda = Soda(670, 200)
-fries = Fries(550, 0)
-burger = Burger(670, 400)
+s = Soda(670, 200)
+f = Fries(550, 0)
+b = Burger(670, 400)
 
 def pay_burger(money):
     money = money + 5
     return money
 def pay_fries(money):
-    money = money + 4
+    money = money + 3
     return money
 def pay_soda(money):
     money = money + 2
@@ -116,10 +117,8 @@ while run:
     keys = pygame.key.get_pressed()
     if keys[pygame.K_d]:
         p.move_direction("right")
-        print("right key pressed")
     if keys[pygame.K_a]:
         p.move_direction("left")
-        print("left key pressed")
     if keys[pygame.K_w]:
         p.move_direction("up")
     if keys[pygame.K_s]:
@@ -147,12 +146,15 @@ while run:
                 game_over = True
                 main_game = False
 
-        if p.rect.colliderect(soda.rect):
+        if p.rect.colliderect(s.rect):
             soda = True
-        if p.rect.colliderect(burger.rect):
+            print("picked up soda")
+        if p.rect.colliderect(b.rect):
             burger = True
-        if p.rect.colliderect(soda.rect):
-            soda = True
+            print("picked up burger")
+        if p.rect.colliderect(f.rect):
+            fries = True
+            print("picked up fries")
 
         if p.rect.colliderect(crab.rect):
             want_burger = True
@@ -184,32 +186,36 @@ while run:
             complete_order(collision)
 
         display_money = stats_font.render(str(money), True, (0,0, 0))
-
+        display_end_two = end_font.render("You  made $" + str(money) + " today", True, (255, 255, 255))
 
 
  # --- Main event loop
     screen.fill((173, 216, 230))
     if instructions:
-        screen.blit(display_instructions_one, (30, 70))
-        screen.blit(display_instructions_two, (30, 120))
-        screen.blit(display_instructions_three, (30, 170))
-        screen.blit(display_instructions_four, (30, 220))
+        screen.blit(display_instructions_one, (150, 170))
+        screen.blit(display_instructions_two, (90, 220))
+        screen.blit(display_instructions_three, (30, 270))
         pygame.display.update()
     elif main_game:
         screen.fill((255, 255, 255))
         screen.blit(jelly.image, jelly.rect)
         screen.blit(p.image, p.rect)
-        screen.blit(burger.image, burger.rect)
-        screen.blit(soda.image, soda.rect)
-        screen.blit(fries.image, fries.rect)
+        screen.blit(b.image, b.rect)
+        screen.blit(s.image, s.rect)
+        screen.blit(f.image, f.rect)
         screen.blit(display_time, (10, 5))
         screen.blit(display_money, (10, 30))
+
+        pygame.draw.rect(screen, (0, 0, 0), f.rect, 2)
+        pygame.draw.rect(screen, (0, 0, 0), s.rect, 2)
+        pygame.draw.rect(screen, (0, 0, 0), b.rect, 2)
         pygame.display.update()
 
     elif game_over == True:
         screen.blit(night_background, (0,0))
+        screen.blit(display_end_one, (20, 150))
+        screen.blit(display_end_two, (40, 200))
         pygame.display.update()
 
 
 pygame.display.update()
-w

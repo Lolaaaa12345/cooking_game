@@ -1,5 +1,6 @@
 import pygame
 import time
+import random
 
 from player import Player
 from crab import Crab
@@ -38,6 +39,7 @@ fries_load = pygame.image.load("fries_station.png")
 burger_load = pygame.image.load("burger_station.png")
 
 night_background = pygame.image.load("night_back.jpeg")
+main_background = pygame.image.load("background new.png")
 
 #variables:
 customers_in_store = 0
@@ -54,13 +56,26 @@ want_fries = False
 want_soda = False
 collision = True
 
+crab_in = False
+fish_in = False
+jelly_in = False
+seahorse_in = False
+squid_in = False
+
+crab_in_time = random.randint(0, 20)
+fish_in_time = random.randint(10, 30)
+jelly_in_time = random.randint(20, 40)
+seahorse_in_time = random.randint(30, 50)
+squid_in_time = random.randint(40, 50)
+
+
 #time variables
 user_hit_the_start_button = False
 
 start_the_game_timer = time.time()
 start_time = float(time.time())
 current_time = start_time
-time_countdown = 10
+time_countdown = 60
 
 
 #render text for later
@@ -85,6 +100,7 @@ squid = Squid(600, 0)
 s = Soda(670, 200)
 f = Fries(550, 0)
 b = Burger(670, 400)
+
 
 def pay_burger(money):
     money = money + 5
@@ -146,6 +162,18 @@ while run:
                 game_over = True
                 main_game = False
 
+            #bring the sprites in
+            if round(total_time) == crab_in_time:
+                crab_in = True
+            if round(total_time) == fish_in_time:
+                fish_in = True
+            if round(total_time) == jelly_in_time:
+                jelly = True
+            if round(total_time) == seahorse_in_time:
+                seahorse_in = True
+            if round(total_time) == squid_in_time:
+                squid_in = True
+
         if p.rect.colliderect(s.rect):
             soda = True
             print("picked up soda")
@@ -197,8 +225,17 @@ while run:
         screen.blit(display_instructions_three, (30, 270))
         pygame.display.update()
     elif main_game:
-        screen.fill((255, 255, 255))
-        screen.blit(jelly.image, jelly.rect)
+        screen.blit(main_background, (0, 0))
+        if crab_in == True:
+            screen.blit(crab.image, crab.rect)
+        if fish_in == True:
+            screen.blit(fish.image, fish.rect)
+        if jelly_in == True:
+            screen.blit(jelly.image, jelly.rect)
+        if seahorse_in == True:
+            screen.blit(seahorse.image, seahorse.rect)
+        if squid_in == True:
+            screen.blit(squid.image, squid.rect)
         screen.blit(p.image, p.rect)
         screen.blit(b.image, b.rect)
         screen.blit(s.image, s.rect)
@@ -209,6 +246,7 @@ while run:
         pygame.draw.rect(screen, (0, 0, 0), f.rect, 2)
         pygame.draw.rect(screen, (0, 0, 0), s.rect, 2)
         pygame.draw.rect(screen, (0, 0, 0), b.rect, 2)
+        pygame.draw.rect(screen, (0, 0, 0), jelly.rect, 2)
         pygame.display.update()
 
     elif game_over == True:

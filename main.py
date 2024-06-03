@@ -11,6 +11,7 @@ from squid import Squid
 from soda import Soda
 from fries import Fries
 from burger import Burger
+from pygame import mixer
 
 
 # set up pygame modules
@@ -47,6 +48,10 @@ money = 0
 instructions = True
 game_over = False
 main_game = False
+
+mixer.init()
+mixer.music.load("cash ringer.mp3")
+play_sound = False
 
 burger = False
 fries = False
@@ -97,9 +102,9 @@ jelly = Jellyfish(600, 0)
 seahorse = Seahorse(600, 0)
 squid = Squid(600, 0)
 
-s = Soda(670, 200)
-f = Fries(550, 0)
-b = Burger(670, 400)
+s = Soda(710, 10)
+f = Fries(710, 250)
+b = Burger(710, 500)
 
 
 def pay_burger(money):
@@ -189,29 +194,38 @@ while run:
             want_fries = True
             want_soda = True
             collision = True
+            play_sound = True
             complete_order(collision)
         if p.rect.colliderect(fish.rect):
             want_burger = True
             want_fries = True
             want_soda = True
             collision = True
+            play_sound = True
             complete_order(collision)
         if p.rect.colliderect(jelly.rect):
             want_burger = True
             want_fries = True
             want_soda = True
             collision = True
+            play_sound = True
             complete_order(collision)
         if p.rect.colliderect(seahorse.rect):
             want_fries = True
             want_soda = True
             collision = True
+            play_sound = True
             complete_order(collision)
         if p.rect.colliderect(squid.rect):
             want_burger = True
             want_soda = True
             collision = True
+            play_sound = True
             complete_order(collision)
+
+        if play_sound == True:
+            mixer.music.play()
+            play_sound = False
 
         display_money = stats_font.render(str(money), True, (0,0, 0))
         display_end_two = end_font.render("You  made $" + str(money) + " today", True, (255, 255, 255))
@@ -226,16 +240,16 @@ while run:
         pygame.display.update()
     elif main_game:
         screen.blit(main_background, (0, 0))
-        if crab_in == True:
-            screen.blit(crab.image, crab.rect)
-        if fish_in == True:
-            screen.blit(fish.image, fish.rect)
-        if jelly_in == True:
-            screen.blit(jelly.image, jelly.rect)
-        if seahorse_in == True:
-            screen.blit(seahorse.image, seahorse.rect)
-        if squid_in == True:
-            screen.blit(squid.image, squid.rect)
+        # if crab_in == True:
+        screen.blit(crab.image, crab.rect)
+        # if fish_in == True:
+        screen.blit(fish.image, fish.rect)
+        # if jelly_in == True:
+        screen.blit(jelly.image, jelly.rect)
+        # if seahorse_in == True:
+        screen.blit(seahorse.image, seahorse.rect)
+        # if squid_in == True:
+        screen.blit(squid.image, squid.rect)
         screen.blit(p.image, p.rect)
         screen.blit(b.image, b.rect)
         screen.blit(s.image, s.rect)

@@ -96,11 +96,11 @@ display_end_one = end_font.render("Congrats you made it to the end!", True, (255
 
 p = Player(500, 200)
 
-crab = Crab(600, 0)
-fish = Fish(600, 0)
-jelly = Jellyfish(600, 0)
-seahorse = Seahorse(600, 0)
-squid = Squid(600, 0)
+crab = Crab(0, 0)
+fish = Fish(0, 0)
+jelly = Jellyfish(0, 0)
+seahorse = Seahorse(0, 0)
+squid = Squid(0, 0)
 
 s = Soda(710, 10)
 f = Fries(710, 250)
@@ -109,12 +109,15 @@ b = Burger(710, 500)
 
 def pay_burger(money):
     money = money + 5
+    print("paid burger")
     return money
 def pay_fries(money):
     money = money + 3
+    print("paid fries")
     return money
 def pay_soda(money):
     money = money + 2
+    print("paid soda")
     return money
 def complete_order(collision):
     if collision == True:
@@ -181,13 +184,10 @@ while run:
 
         if p.rect.colliderect(s.rect):
             soda = True
-            print("picked up soda")
         if p.rect.colliderect(b.rect):
             burger = True
-            print("picked up burger")
         if p.rect.colliderect(f.rect):
             fries = True
-            print("picked up fries")
 
         if p.rect.colliderect(crab.rect):
             want_burger = True
@@ -196,6 +196,7 @@ while run:
             collision = True
             play_sound = True
             complete_order(collision)
+            print("crab interact")
         if p.rect.colliderect(fish.rect):
             want_burger = True
             want_fries = True
@@ -203,6 +204,7 @@ while run:
             collision = True
             play_sound = True
             complete_order(collision)
+            print("fish interact")
         if p.rect.colliderect(jelly.rect):
             want_burger = True
             want_fries = True
@@ -210,6 +212,7 @@ while run:
             collision = True
             play_sound = True
             complete_order(collision)
+            print("jelly interact")
         if p.rect.colliderect(seahorse.rect):
             want_fries = True
             want_soda = True
@@ -227,6 +230,17 @@ while run:
             mixer.music.play()
             play_sound = False
 
+        if crab_in == True:
+            crab.enter_restaurant(50, 50)
+        if fish_in == True:
+            fish.enter_restaurant(300, 50)
+        if jelly_in == True:
+            jelly.enter_restaurant(50, 250)
+        if seahorse_in == True:
+            seahorse.enter_restaurant(350, 250)
+        if squid_in == True:
+            squid.enter_restaurant(250, 450)
+
         display_money = stats_font.render(str(money), True, (0,0, 0))
         display_end_two = end_font.render("You  made $" + str(money) + " today", True, (255, 255, 255))
 
@@ -240,16 +254,16 @@ while run:
         pygame.display.update()
     elif main_game:
         screen.blit(main_background, (0, 0))
-        # if crab_in == True:
-        screen.blit(crab.image, crab.rect)
-        # if fish_in == True:
-        screen.blit(fish.image, fish.rect)
-        # if jelly_in == True:
-        screen.blit(jelly.image, jelly.rect)
-        # if seahorse_in == True:
-        screen.blit(seahorse.image, seahorse.rect)
-        # if squid_in == True:
-        screen.blit(squid.image, squid.rect)
+        if crab_in == True:
+            screen.blit(crab.image, crab.rect)
+        if fish_in == True:
+            screen.blit(fish.image, fish.rect)
+        if jelly_in == True:
+            screen.blit(jelly.image, jelly.rect)
+        if seahorse_in == True:
+            screen.blit(seahorse.image, seahorse.rect)
+        if squid_in == True:
+            screen.blit(squid.image, squid.rect)
         screen.blit(p.image, p.rect)
         screen.blit(b.image, b.rect)
         screen.blit(s.image, s.rect)
@@ -257,7 +271,7 @@ while run:
         screen.blit(display_time, (10, 5))
         screen.blit(display_money, (10, 30))
 
-        pygame.draw.rect(screen, (0, 0, 0), f.rect, 2)
+        pygame.draw.rect(screen, (0, 0, 0), crab.rect, 2)
         pygame.draw.rect(screen, (0, 0, 0), s.rect, 2)
         pygame.draw.rect(screen, (0, 0, 0), b.rect, 2)
         pygame.draw.rect(screen, (0, 0, 0), jelly.rect, 2)

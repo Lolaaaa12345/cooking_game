@@ -10,7 +10,7 @@ class Jellyfish:
 
         self.delta = 1
 
-    def enter_restaurant (self, sit_x, sit_y):
+    def enter_restaurant(self, sit_x, sit_y):
         if self.x != sit_x:
             if self.x > sit_x:
                 self.x = self.x - self.delta

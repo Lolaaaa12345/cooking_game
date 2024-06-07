@@ -67,16 +67,16 @@ jelly_in = False
 seahorse_in = False
 squid_in = False
 
-crab_in_time = random.randint(0, 20)
+
+# crab_in_time = random.randint(0, 20)
+crab_in_time = 57
 fish_in_time = random.randint(10, 30)
 jelly_in_time = random.randint(20, 40)
 seahorse_in_time = random.randint(30, 50)
 squid_in_time = random.randint(40, 50)
 
-
 #time variables
 user_hit_the_start_button = False
-
 start_the_game_timer = time.time()
 start_time = float(time.time())
 current_time = start_time
@@ -85,7 +85,6 @@ time_countdown = 60
 
 #render text for later
 display_money = stats_font.render("$0", True, (0, 0, 0))
-
 display_instructions_one = instructions_font.render("Fufill orders to make money!", True, (255, 255, 255))
 display_instructions_two = instructions_font.render("Burgers are $5, fries $3 and soda $2", True, (255, 255, 255))
 display_instructions_three = instructions_font.render("To give a customer their order, walk into them", True, (255, 255, 255))
@@ -173,6 +172,7 @@ while run:
             #bring the sprites in
             if round(total_time) == crab_in_time:
                 crab_in = True
+                crab_move_in = True
             if round(total_time) == fish_in_time:
                 fish_in = True
             if round(total_time) == jelly_in_time:
@@ -271,10 +271,7 @@ while run:
         screen.blit(display_time, (10, 5))
         screen.blit(display_money, (10, 30))
 
-        pygame.draw.rect(screen, (0, 0, 0), crab.rect, 2)
-        pygame.draw.rect(screen, (0, 0, 0), s.rect, 2)
-        pygame.draw.rect(screen, (0, 0, 0), b.rect, 2)
-        pygame.draw.rect(screen, (0, 0, 0), jelly.rect, 2)
+        pygame.draw.rect(screen, (0, 0, 0), seahorse.rect, 2)
         pygame.display.update()
 
     elif game_over == True:

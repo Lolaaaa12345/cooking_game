@@ -21,3 +21,4 @@ class Fish:
                 self.y = self.y - self.delta
             if self.y < sit_y:
                 self.y = self.y + self.delta
+        self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])

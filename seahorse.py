@@ -7,10 +7,7 @@ class Seahorse:
         self.image = pygame.image.load("sea horse.png")
 
         self.image_size = self.image.get_size()
-        scale_size = (self.image_size[0] * 3.5, self.image_size[1] * 3.5)
-        self.image = pygame.transform.scale(self.image, scale_size)
-        self.image_size = self.image.get_size()
-        self.rect = pygame.Rect(self.x, self.y, self.image_size[0] * 3.5, self.image_size[1] * 3.5)
+        self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
 
         self.delta = 1
 
@@ -25,3 +22,4 @@ class Seahorse:
                 self.y = self.y - self.delta
             if self.y < sit_y:
                 self.y = self.y + self.delta
+        self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])

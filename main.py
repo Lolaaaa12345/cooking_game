@@ -43,7 +43,6 @@ night_background = pygame.image.load("night_back.jpeg")
 main_background = pygame.image.load("background new.png")
 
 #variables:
-customers_in_store = 0
 money = 0
 instructions = True
 game_over = False
@@ -56,10 +55,24 @@ play_sound = False
 burger = False
 fries = False
 soda = False
-want_burger = False
-want_fries = False
-want_soda = False
-collision = True
+
+# want_burger_crab = False
+# want_fries_crab = False
+# want_soda_crab = False
+#
+# want_burger_fish = False
+# want_fries_fish = False
+# want_soda_fish = False
+#
+# want_burger_jelly = False
+# want_fries_jelly = False
+# want_soda_jelly = False
+#
+# want_fries_seahorse = False
+# want_soda_seahorse = False
+#
+# want_burger_squid = False
+# want_soda_squid = False
 
 crab_in = False
 fish_in = False
@@ -67,6 +80,11 @@ jelly_in = False
 seahorse_in = False
 squid_in = False
 
+crab_out = False
+fish_out = False
+jelly_out = False
+seahorse_out = False
+squid_out = False
 
 # crab_in_time = random.randint(0, 20)
 crab_in_time = 57
@@ -89,6 +107,10 @@ display_instructions_one = instructions_font.render("Fufill orders to make money
 display_instructions_two = instructions_font.render("Burgers are $5, fries $3 and soda $2", True, (255, 255, 255))
 display_instructions_three = instructions_font.render("To give a customer their order, walk into them", True, (255, 255, 255))
 
+display_fries_status = stats_font.render("Fries: " + str(fries), True, (255, 255, 255))
+display_burger_status = stats_font.render("Burger: " + str(burger), True, (255, 255, 255))
+display_soda_status = stats_font.render("Soda: " + str(soda), True, (255, 255,255))
+
 display_end_one = end_font.render("Congrats you made it to the end!", True, (255, 255, 255))
 
 #characters rectangles
@@ -105,33 +127,6 @@ s = Soda(710, 10)
 f = Fries(710, 250)
 b = Burger(710, 500)
 
-
-def pay_burger(money):
-    money = money + 5
-    print("paid burger")
-    return money
-def pay_fries(money):
-    money = money + 3
-    print("paid fries")
-    return money
-def pay_soda(money):
-    money = money + 2
-    print("paid soda")
-    return money
-def complete_order(collision):
-    if collision == True:
-        if soda == True and want_soda == True:
-            pay_soda(money)
-            soda == False
-            want_soda == False
-        if burger == True and want_burger == True:
-            pay_burger(money)
-            burger == False
-            want_burger == False
-        if fries == True and want_fries == True:
-            pay_fries(money)
-            fries == False
-            want_fries == False
 
 run = True
 # -------- Main Program Loop -----------
@@ -176,12 +171,13 @@ while run:
             if round(total_time) == fish_in_time:
                 fish_in = True
             if round(total_time) == jelly_in_time:
-                jelly = True
+                jelly_in = True
             if round(total_time) == seahorse_in_time:
                 seahorse_in = True
             if round(total_time) == squid_in_time:
                 squid_in = True
 
+        #to pick up food
         if p.rect.colliderect(s.rect):
             soda = True
         if p.rect.colliderect(b.rect):
@@ -189,42 +185,23 @@ while run:
         if p.rect.colliderect(f.rect):
             fries = True
 
+        #to complete orders
         if p.rect.colliderect(crab.rect):
-            want_burger = True
-            want_fries = True
-            want_soda = True
-            collision = True
+            money, crab_out = crab.get_food(fries, soda, burger, money, crab_out)
             play_sound = True
-            complete_order(collision)
-            print("crab interact")
         if p.rect.colliderect(fish.rect):
-            want_burger = True
-            want_fries = True
-            want_soda = True
-            collision = True
+            money, fish_out = fish.get_food(fries, soda, burger, money, fish_out)
             play_sound = True
-            complete_order(collision)
-            print("fish interact")
         if p.rect.colliderect(jelly.rect):
-            want_burger = True
-            want_fries = True
-            want_soda = True
-            collision = True
+            money, jelly_out = jelly.get_food(fries, soda, burger, money, jelly_out)
             play_sound = True
-            complete_order(collision)
-            print("jelly interact")
         if p.rect.colliderect(seahorse.rect):
-            want_fries = True
-            want_soda = True
-            collision = True
+            money, seahorse_out = seahorse.get_food(fries, soda, money, seahorse_out)
             play_sound = True
-            complete_order(collision)
         if p.rect.colliderect(squid.rect):
-            want_burger = True
-            want_soda = True
-            collision = True
+            money, squid_out = squid.get_food(soda, burger, money, squid_out)
             play_sound = True
-            complete_order(collision)
+
 
         if play_sound == True:
             mixer.music.play()
@@ -241,9 +218,16 @@ while run:
         if squid_in == True:
             squid.enter_restaurant(250, 450)
 
-        display_money = stats_font.render(str(money), True, (0,0, 0))
-        display_end_two = end_font.render("You  made $" + str(money) + " today", True, (255, 255, 255))
 
+
+
+        #updating status
+        display_money = stats_font.render(str(money), True, (0,0, 0))
+        display_fries_status = stats_font.render("Fries: " + str(fries), True, (0,0, 0))
+        display_burger_status = stats_font.render("Burger: " + str(burger), True, (0,0, 0))
+        display_soda_status = stats_font.render("Soda: " + str(soda), True, (0,0, 0))
+
+        display_end_two = end_font.render("You  made $" + str(money) + " today", True, (255, 255, 255))
 
  # --- Main event loop
     screen.fill((173, 216, 230))
@@ -268,10 +252,13 @@ while run:
         screen.blit(b.image, b.rect)
         screen.blit(s.image, s.rect)
         screen.blit(f.image, f.rect)
-        screen.blit(display_time, (10, 5))
-        screen.blit(display_money, (10, 30))
+        screen.blit(display_fries_status, (10, 5))
+        screen.blit(display_burger_status, (150, 5))
+        screen.blit(display_soda_status, (300, 5))
+        screen.blit(display_time, (10, 30))
+        screen.blit(display_money, (10, 60))
 
-        pygame.draw.rect(screen, (0, 0, 0), seahorse.rect, 2)
+        # pygame.draw.rect(screen, (0, 0, 0), seahorse.rect, 2)
         pygame.display.update()
 
     elif game_over == True:

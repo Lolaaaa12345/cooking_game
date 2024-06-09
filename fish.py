@@ -22,3 +22,10 @@ class Fish:
             if self.y < sit_y:
                 self.y = self.y + self.delta
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
+
+    def get_food(self, has_fries, has_soda, has_burger, money_class, complete):
+        if has_fries and has_soda and has_burger:
+            money_class += 10
+            complete = True
+            return money_class, complete
+

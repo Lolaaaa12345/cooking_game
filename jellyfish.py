@@ -27,5 +27,8 @@ class Jellyfish:
         if has_fries and has_soda and has_burger:
             money_class += 10
             complete = True
-            return money_class, complete
+            has_fries = False
+            has_burger = False
+            has_soda = False
+            return money_class, complete, has_fries, has_burger, has_soda
 

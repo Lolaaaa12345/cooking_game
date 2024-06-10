@@ -25,6 +25,8 @@ class Squid:
 
     def get_food(self, has_soda, has_burger, money_class, complete):
         if has_soda and has_burger:
-            money_class += 10
+            money_class += 7
             complete = True
-            return money_class, complete
+            has_burger = False
+            has_soda = False
+            return money_class, complete, has_burger, has_soda

@@ -56,24 +56,6 @@ burger = False
 fries = False
 soda = False
 
-# want_burger_crab = False
-# want_fries_crab = False
-# want_soda_crab = False
-#
-# want_burger_fish = False
-# want_fries_fish = False
-# want_soda_fish = False
-#
-# want_burger_jelly = False
-# want_fries_jelly = False
-# want_soda_jelly = False
-#
-# want_fries_seahorse = False
-# want_soda_seahorse = False
-#
-# want_burger_squid = False
-# want_soda_squid = False
-
 crab_in = False
 fish_in = False
 jelly_in = False
@@ -88,17 +70,17 @@ squid_out = False
 
 # crab_in_time = random.randint(0, 20)
 crab_in_time = 57
-fish_in_time = random.randint(10, 30)
-jelly_in_time = random.randint(20, 40)
-seahorse_in_time = random.randint(30, 50)
-squid_in_time = random.randint(40, 50)
+fish_in_time = random.randint(5, 10)
+jelly_in_time = random.randint(15, 16)
+seahorse_in_time = random.randint(0, 15)
+squid_in_time = random.randint(0, 5)
 
 #time variables
 user_hit_the_start_button = False
 start_the_game_timer = time.time()
 start_time = float(time.time())
 current_time = start_time
-time_countdown = 60
+time_countdown = 20
 
 
 #render text for later
@@ -117,11 +99,11 @@ display_end_one = end_font.render("Congrats you made it to the end!", True, (255
 
 p = Player(500, 200)
 
-crab = Crab(0, 0)
-fish = Fish(0, 0)
-jelly = Jellyfish(0, 0)
-seahorse = Seahorse(0, 0)
-squid = Squid(0, 0)
+crab = Crab(-100, -100)
+fish = Fish(-100, -100)
+jelly = Jellyfish(-100, -100)
+seahorse = Seahorse(-100, -100)
+squid = Squid(-100, -100)
 
 s = Soda(710, 10)
 f = Fries(710, 250)
@@ -185,21 +167,23 @@ while run:
         if p.rect.colliderect(f.rect):
             fries = True
 
-        #to complete orders
-        if p.rect.colliderect(crab.rect):
-            money, crab_out = crab.get_food(fries, soda, burger, money, crab_out)
+        #to complete ordersd
+        if p.rect.colliderect(crab.rect) and crab_out is False:
+            money, crab_out, fries, burger, soda = crab.get_food(fries, soda, burger, money, crab_out)
             play_sound = True
-        if p.rect.colliderect(fish.rect):
-            money, fish_out = fish.get_food(fries, soda, burger, money, fish_out)
+            print("crab")
+        if p.rect.colliderect(fish.rect) and fish_out is False:
+            money, fish_out, fries, burger, soda = fish.get_food(fries, soda, burger, money, fish_out)
             play_sound = True
-        if p.rect.colliderect(jelly.rect):
-            money, jelly_out = jelly.get_food(fries, soda, burger, money, jelly_out)
+            print("fish")
+        if p.rect.colliderect(jelly.rect) and jelly_out is False:
+            money, jelly_out, fries, burger, soda = jelly.get_food(fries, soda, burger, money, jelly_out)
             play_sound = True
-        if p.rect.colliderect(seahorse.rect):
-            money, seahorse_out = seahorse.get_food(fries, soda, money, seahorse_out)
+        if p.rect.colliderect(seahorse.rect) and seahorse_out is False:
+            money, seahorse_out, fries, soda = seahorse.get_food(fries, soda, money, seahorse_out)
             play_sound = True
-        if p.rect.colliderect(squid.rect):
-            money, squid_out = squid.get_food(soda, burger, money, squid_out)
+        if p.rect.colliderect(squid.rect) and squid_out is False:
+            money, squid_out, burger, soda = squid.get_food(soda, burger, money, squid_out)
             play_sound = True
 
 
@@ -238,15 +222,15 @@ while run:
         pygame.display.update()
     elif main_game:
         screen.blit(main_background, (0, 0))
-        if crab_in == True:
+        if crab_in == True and crab_out is False:
             screen.blit(crab.image, crab.rect)
-        if fish_in == True:
+        if fish_in == True and fish_out is False:
             screen.blit(fish.image, fish.rect)
-        if jelly_in == True:
+        if jelly_in == True and jelly_out is False:
             screen.blit(jelly.image, jelly.rect)
-        if seahorse_in == True:
+        if seahorse_in == True and seahorse_out is False:
             screen.blit(seahorse.image, seahorse.rect)
-        if squid_in == True:
+        if squid_in == True and squid_out is False:
             screen.blit(squid.image, squid.rect)
         screen.blit(p.image, p.rect)
         screen.blit(b.image, b.rect)
@@ -258,7 +242,7 @@ while run:
         screen.blit(display_time, (10, 30))
         screen.blit(display_money, (10, 60))
 
-        # pygame.draw.rect(screen, (0, 0, 0), seahorse.rect, 2)
+        pygame.draw.rect(screen, (0, 0, 0), fish.rect, 2)
         pygame.display.update()
 
     elif game_over == True:

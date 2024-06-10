@@ -26,6 +26,8 @@ class Seahorse:
 
     def get_food(self, has_fries, has_soda, money_class, complete):
         if has_fries and has_soda:
-            money_class += 10
+            money_class += 5
             complete = True
-            return money_class, complete
+            has_fries = False
+            has_soda = False
+            return money_class, complete, has_fries, has_soda

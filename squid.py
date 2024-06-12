@@ -30,3 +30,5 @@ class Squid:
             has_burger = False
             has_soda = False
             return money_class, complete, has_burger, has_soda
+        else:
+            return money_class, complete, has_burger, has_soda

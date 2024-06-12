@@ -31,3 +31,5 @@ class Seahorse:
             has_fries = False
             has_soda = False
             return money_class, complete, has_fries, has_soda
+        else:
+            return money_class, complete, has_fries, has_soda

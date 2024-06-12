@@ -69,18 +69,18 @@ seahorse_out = False
 squid_out = False
 
 # crab_in_time = random.randint(0, 20)
-crab_in_time = 57
-fish_in_time = random.randint(5, 10)
-jelly_in_time = random.randint(15, 16)
-seahorse_in_time = random.randint(0, 15)
-squid_in_time = random.randint(0, 5)
+crab_in_time = random.randint(15, 28)
+fish_in_time = random.randint(20, 25)
+jelly_in_time = random.randint(23, 24)
+seahorse_in_time = random.randint(25, 30)
+squid_in_time = random.randint(15, 25)
 
 #time variables
 user_hit_the_start_button = False
 start_the_game_timer = time.time()
 start_time = float(time.time())
 current_time = start_time
-time_countdown = 20
+time_countdown = 30
 
 
 #render text for later
@@ -171,11 +171,9 @@ while run:
         if p.rect.colliderect(crab.rect) and crab_out is False:
             money, crab_out, fries, burger, soda = crab.get_food(fries, soda, burger, money, crab_out)
             play_sound = True
-            print("crab")
         if p.rect.colliderect(fish.rect) and fish_out is False:
             money, fish_out, fries, burger, soda = fish.get_food(fries, soda, burger, money, fish_out)
             play_sound = True
-            print("fish")
         if p.rect.colliderect(jelly.rect) and jelly_out is False:
             money, jelly_out, fries, burger, soda = jelly.get_food(fries, soda, burger, money, jelly_out)
             play_sound = True
@@ -242,7 +240,6 @@ while run:
         screen.blit(display_time, (10, 30))
         screen.blit(display_money, (10, 60))
 
-        pygame.draw.rect(screen, (0, 0, 0), fish.rect, 2)
         pygame.display.update()
 
     elif game_over == True:
